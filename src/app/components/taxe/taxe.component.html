@@ -1,0 +1,84 @@
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">Taxe Sejour</span>
+</mat-toolbar>
+
+<div class="container" *ngIf="!post; else forminfo" novalidate> 
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Trimestre" formControlName="trimestre">
+      <mat-error *ngIf="!formGroup.controls['trimestre'].valid && formGroup.controls['trimestre'].touched">
+        {{ getErrorTrimestre() }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Année" formControlName="annee">
+      <mat-error *ngIf="!annee.valid && annee.touched">
+        {{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+        <mat-label>Redevable</mat-label>
+        <mat-select formControlName="redevable">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+ 
+      <mat-form-field class="form-element">
+        <mat-label>Locale</mat-label>
+        <mat-select formControlName="locale">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Nombre de nuité"  formControlName="nuite">
+      </mat-form-field>
+
+    <div class="form-element">
+      <mat-form-field appearance="fill">
+        <mat-label>Date de paiment</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  </div> 
+  
+  <button mat-raised-button color="primary" type="submit">Simuler</button>
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+  </div>
+</ng-template>
+
+<mat-card class="example-card">
+
+  <mat-card-header>
+
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Simulation des montants</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+   <h3>Montant de base :</h3>
+   <h3>Montant de retard :</h3>
+   <h3>Nombre de mois de retard:</h3>
+   <h3>Taux:</h3>
+   <h3>Montant total:</h3>
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <button mat-button>Valider</button>
+
+  </mat-card-actions>
+
+</mat-card>
